@@ -96,12 +96,13 @@ public:
   /* virtual methods from class TaskPoint */
   double GetElevation() const override;
 
-  /* virtual methods from class ScoredTaskPoint */
-  bool CheckExitTransition(const AircraftState &ref_now,
+  bool CheckEnterTransition(const AircraftState &ref_now,
                            const AircraftState &ref_last) const override;
+
   /* virtual methods from class ScoredTaskPoint */
    bool CheckExitTransition(const AircraftState &ref_now,
                             const AircraftState &ref_last) const override;
+
   /* virtual methods from class OrderedTaskPoint */
   void SetTaskBehaviour(const TaskBehaviour &tb) override;
   void SetOrderedTaskSettings(const OrderedTaskSettings &s) override;

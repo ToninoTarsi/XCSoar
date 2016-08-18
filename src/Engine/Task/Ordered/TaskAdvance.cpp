@@ -43,12 +43,13 @@ TaskAdvance::IsStateReady(const TaskPoint &tp,
   case TaskPointType::UNORDERED:
     gcc_unreachable();
 
-  case TaskPointType::START:
+  case TaskPointType::START: {
     const StartPoint &sp = (const StartPoint &)tp;
     if ( sp.IsStartOnEnter() )
       return x_enter;
     else
       return x_exit;
+  }
 
   case TaskPointType::AAT: {
     const AATPoint &ap = (const AATPoint &)tp;

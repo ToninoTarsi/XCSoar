@@ -516,6 +516,9 @@ InfoBoxLayout::CalcInfoBoxSizes(Layout &layout, PixelSize screen_size,
   case InfoBoxSettings::Geometry::OBSOLETE_BOTTOM_RIGHT_12:
     gcc_unreachable();
   }
+  layout.control_size.cx = layout.control_size.cx*1.10;
+
+  printf("Tony ladscape %d\n",layout.control_size.cx);
 }
 
 int
