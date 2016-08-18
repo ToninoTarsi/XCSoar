@@ -302,9 +302,7 @@ protected:
                             const AircraftState &ref_last) const override;
 
   bool CheckExitTransition(const AircraftState &ref_now,
-                           const AircraftState &ref_last) const override{
-    return CheckEnterTransition(ref_last, ref_now);
-  }
+                           const AircraftState &ref_last) const override;
 };
 
 #endif

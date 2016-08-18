@@ -121,7 +121,7 @@ Profile::Load(const ProfileMap &map, UISettings &settings)
   map.Get(ProfileKeys::MenuTimeout, settings.menu_timeout);
 
   map.Get(ProfileKeys::UIScale, settings.scale);
-  if (settings.scale < 50 || settings.scale > 200)
+  if (settings.scale < 50 || settings.scale > 300)
     settings.scale = 100;
 
   map.Get(ProfileKeys::EnableTAGauge, settings.enable_thermal_assistant_gauge);

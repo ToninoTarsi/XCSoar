@@ -44,6 +44,8 @@ class StartPoint final : public OrderedTaskPoint {
 
   TaskStartMargins margins;
 
+  bool start_enter;     // False if this is a Glinging EXIT  cylinder start ; True for Hangliding ENTER cylinder start
+
   /**
    * A copy of OrderedTaskSettings::start_constraints, managed by
    * SetOrderedTaskSettings().
@@ -71,6 +73,14 @@ public:
     return constraints.require_arm;
   }
 
+  /* Get if this is Hanggliding ENTER cylinder (true) start or normal start (false - default)*/
+     bool IsStartOnEnter()  const {
+         return start_enter;
+     }
+
+     /* Set if this is Hanggliding ENTER cylinder start or normal start (default)*/
+     void SetStartOnEnter(bool enter);
+
   /**
    * Search for the min point on the boundary from
    * the aircraft state to the next point.  Should only
@@ -89,7 +99,9 @@ public:
   /* virtual methods from class ScoredTaskPoint */
   bool CheckExitTransition(const AircraftState &ref_now,
                            const AircraftState &ref_last) const override;
-
+  /* virtual methods from class ScoredTaskPoint */
+   bool CheckExitTransition(const AircraftState &ref_now,
+                            const AircraftState &ref_last) const override;
   /* virtual methods from class OrderedTaskPoint */
   void SetTaskBehaviour(const TaskBehaviour &tb) override;
   void SetOrderedTaskSettings(const OrderedTaskSettings &s) override;

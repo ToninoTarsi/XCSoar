@@ -125,6 +125,14 @@ OrderedTaskPoint::CheckEnterTransition(const AircraftState &ref_now,
     TransitionConstraint(ref_now.location, ref_last.location);
 }
 
+bool
+OrderedTaskPoint::CheckExitTransition(const AircraftState &ref_now,
+                                       const AircraftState &ref_last) const
+{
+  return ! IsInSector(ref_now) && IsInSector(ref_last) &&
+    TransitionConstraint(ref_now.location, ref_last.location);
+}
+
 double
 OrderedTaskPoint::DoubleLegDistance(const GeoPoint &ref) const
 {

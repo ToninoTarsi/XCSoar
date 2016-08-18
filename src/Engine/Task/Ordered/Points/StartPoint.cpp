@@ -37,6 +37,7 @@ StartPoint::StartPoint(ObservationZonePoint *_oz,
    margins(tb.start_margins),
    constraints(_constraints)
 {
+    start_enter = false; // Default is an EXIT clylinder satrt
 }
 
 void
@@ -67,6 +68,10 @@ StartPoint::SetNeighbours(OrderedTaskPoint *_prev, OrderedTaskPoint *_next)
   OrderedTaskPoint::SetNeighbours(_prev, _next);
 }
 
+void
+StartPoint::SetStartOnEnter(bool enter) {
+   start_enter =  enter;
+}
 
 void
 StartPoint::find_best_start(const AircraftState &state,
@@ -111,6 +116,9 @@ bool
 StartPoint::CheckExitTransition(const AircraftState &ref_now,
                                 const AircraftState &ref_last) const
 {
+  if (  start_enter )
+    return false;
+
   if (!constraints.open_time_span.HasBegun(RoughTime::FromSecondOfDayChecked(unsigned(ref_last.time))))
     /* the start gate is not yet open when we left the OZ */
     return false;
@@ -133,6 +141,50 @@ StartPoint::CheckExitTransition(const AircraftState &ref_now,
   if (now_in_height && last_in_height) {
     // both within height limit, so use normal location checks
     return OrderedTaskPoint::CheckExitTransition(ref_now, ref_last);
+  }
+  if (!TransitionConstraint(ref_now.location, ref_last.location)) {
+    // don't allow vertical crossings for line OZ's
+    return false;
+  }
+
+  // transition inside sector to above
+  return !now_in_height && last_in_height
+    && OrderedTaskPoint::IsInSector(ref_last)
+    && CanStartThroughTop();
+}
+
+bool
+StartPoint::CheckEnterTransition(const AircraftState &ref_now,
+                                const AircraftState &ref_last) const
+{
+  if ( ! start_enter )
+    return false;
+
+  if (!constraints.open_time_span.HasBegun(RoughTime::FromSecondOfDayChecked(unsigned(ref_last.time))))
+    /* the start gate is not yet open when we left the OZ */
+    return false;
+
+  if (constraints.open_time_span.HasEnded(RoughTime::FromSecondOfDayChecked(unsigned(ref_now.time))))
+    /* the start gate was already closed when we left the OZ */
+    return false;
+
+  if (!constraints.CheckSpeed(ref_now.ground_speed, &margins) ||
+      !constraints.CheckSpeed(ref_last.ground_speed, &margins))
+    /* flying too fast */
+    return false;
+
+  // TODO: not using margins?
+  const bool now_in_height =
+    constraints.CheckHeight(ref_now, GetBaseElevation());
+  const bool last_in_height =
+    constraints.CheckHeight(ref_last, GetBaseElevation());
+
+  if (now_in_height && last_in_height) {
+    // both within height limit, so use normal location checks
+//    if ( ! start_enter )
+//       return OrderedTaskPoint::CheckExitTransition(ref_now, ref_last);
+//    else
+       return OrderedTaskPoint::CheckEnterTransition(ref_now, ref_last);
   }
   if (!TransitionConstraint(ref_now.location, ref_last.location)) {
     // don't allow vertical crossings for line OZ's
