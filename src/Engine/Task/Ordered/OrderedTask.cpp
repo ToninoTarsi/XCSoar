@@ -196,6 +196,21 @@ OrderedTask::UpdateGeometry()
     }
   }
 
+  // Determin if STAR is in ENTER or EXIT
+  if ( taskpoint_start != nullptr &&
+           taskpoint_start->GetObservationZone().GetShape() == ObservationZone::Shape::CYLINDER &&
+           task_points.size() > 0 &&
+           task_points[1] != nullptr &&
+           task_points[1]->GetObservationZone().GetShape() == ObservationZone::Shape::CYLINDER &&
+           taskpoint_start->GetObservationZone().IsInSector(task_points[1]->GetLocation())  ) {
+     printf("SetStartOnEnter(true)\n");
+     taskpoint_start->SetStartOnEnter(true);
+  }
+  else {
+      printf("SetStartOnEnter(false)\n");
+      taskpoint_start->SetStartOnEnter(false);
+  }
+
   force_full_update = true;
 }
 
@@ -592,6 +607,8 @@ OrderedTask::CheckTransitionPoint(OrderedTaskPoint &point,
 
     if (task_events != nullptr)
       task_events->EnterTransition(point);
+      if (is_start &&  taskpoint_start != nullptr && taskpoint_start->IsStartOnEnter() )
+          last_started = false;
   }
 
   if (nearby && point.TransitionExit(state, state_last, task_projection)) {
@@ -601,7 +618,7 @@ OrderedTask::CheckTransitionPoint(OrderedTaskPoint &point,
       task_events->ExitTransition(point);
 
     // detect restart
-    if (is_start && last_started)
+    if (is_start &&  taskpoint_start != nullptr && ! taskpoint_start->IsStartOnEnter() )
       last_started = false;
   }
 
@@ -1132,8 +1149,10 @@ OrderedTask::TaskStarted(bool soft) const
 {
   if (taskpoint_start) {
     // have we really started?
-    if (taskpoint_start->HasExited())
-      return true;
+    if ( !taskpoint_start->IsStartOnEnter() &&  taskpoint_start->HasExited())
+       return true;
+    if ( taskpoint_start->IsStartOnEnter() &&  taskpoint_start->HasEntered())
+       return true;
 
     // if soft starts allowed, consider started if we progressed to next tp
     if (soft && (active_task_point>0))
