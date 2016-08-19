@@ -147,6 +147,8 @@ struct MapSettings {
 
   int glider_screen_position;
   /** Orientation of the map (North up, Track up, etc.) */
+
+  int map_size;
   MapOrientation cruise_orientation;
   MapOrientation circling_orientation;
 

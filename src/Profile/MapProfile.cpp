@@ -77,6 +77,8 @@ Profile::Load(const ProfileMap &map, MapSettings &settings)
 
   map.Get(ProfileKeys::GliderScreenPosition, settings.glider_screen_position);
 
+  map.Get(ProfileKeys::MapSize, settings.map_size);
+
   bool orientation_found = false;
 
   unsigned Temp = (unsigned)MapOrientation::NORTH_UP;

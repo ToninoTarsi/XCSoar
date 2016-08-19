@@ -147,6 +147,8 @@ const char AutoCloseFlarmDialog[] = "AutoCloseFlarmDialog";
 const char EnableTAGauge[] = "EnableTAGauge";
 const char EnableThermalProfile[] = "EnableThermalProfile";
 const char GliderScreenPosition[] = "GliderScreenPosition";
+const char MapSize[] = "MapSize";
+
 const char SetSystemTimeFromGPS[] = "SetSystemTimeFromGPS";
 
 const char FinishMinHeight[] = "FinishMinHeight";

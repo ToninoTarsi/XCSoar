@@ -142,6 +142,8 @@ extern const char TrailDrift[];
 extern const char DetourCostMarker[];
 extern const char DisplayTrackBearing[];
 extern const char GliderScreenPosition[];
+extern const char MapSize[];
+
 extern const char SetSystemTimeFromGPS[];
 
 extern const char FinishMinHeight[];

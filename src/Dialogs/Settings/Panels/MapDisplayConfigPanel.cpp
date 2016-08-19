@@ -38,6 +38,7 @@ enum ControlIndex {
   GliderScreenPosition,
   MaxAutoZoomDistance,
   PAGES_DISTINCT_ZOOM,
+  MapSize,
 };
 
 static constexpr StaticEnumChoice orientation_list[] = {
@@ -147,6 +148,12 @@ MapDisplayConfigPanel::Prepare(ContainerWindow &parent, const PixelRect &rc)
              _("Maintain one map zoom level on each page."),
              page_settings.distinct_zoom);
   SetExpertRow(PAGES_DISTINCT_ZOOM);
+
+  AddInteger(_("Map size"),
+             _("Define di size of the Map area."),
+             _T("%d %%"), _T("%d"), 80, 120, 5,
+             settings_map.map_size);
+  SetExpertRow(MapSize);
 
   UpdateVisibilities();
 }
