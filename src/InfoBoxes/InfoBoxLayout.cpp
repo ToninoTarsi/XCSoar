@@ -25,6 +25,8 @@ Copyright_License {
 #include "Border.hpp"
 #include "Util/Macros.hpp"
 #include "Util/Clamp.hpp"
+#include "Interface.hpp"
+
 
 static constexpr double CONTROLHEIGHTRATIO = 7.4;
 
@@ -516,9 +518,19 @@ InfoBoxLayout::CalcInfoBoxSizes(Layout &layout, PixelSize screen_size,
   case InfoBoxSettings::Geometry::OBSOLETE_BOTTOM_RIGHT_12:
     gcc_unreachable();
   }
-  layout.control_size.cx = layout.control_size.cx*1.10;
+
+  MapSettings &settings_map = CommonInterface::SetMapSettings();
+  double size_factor = ( 100. + ( 100. - settings_map.map_size )  ) / 100. ;
+  layout.control_size.cx = layout.control_size.cx*size_factor;
+
+  printf("settings_map.map_size %d\n",settings_map.map_size);
+
+  printf("settings_map.map_size %f\n",size_factor);
 
   printf("Tony ladscape %d\n",layout.control_size.cx);
+
+
+
 }
 
 int

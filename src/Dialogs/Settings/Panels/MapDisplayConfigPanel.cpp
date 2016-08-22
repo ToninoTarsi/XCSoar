@@ -151,7 +151,7 @@ MapDisplayConfigPanel::Prepare(ContainerWindow &parent, const PixelRect &rc)
 
   AddInteger(_("Map size"),
              _("Define di size of the Map area."),
-             _T("%d %%"), _T("%d"), 80, 120, 5,
+             _T("%d %%"), _T("%d"), 70, 130, 5,
              settings_map.map_size);
   SetExpertRow(MapSize);
 
