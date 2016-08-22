@@ -178,6 +178,9 @@ MapDisplayConfigPanel::Save(bool &_changed)
   changed |= SaveValue(GliderScreenPosition, ProfileKeys::GliderScreenPosition,
                        settings_map.glider_screen_position);
 
+  changed |= SaveValue(MapSize, ProfileKeys::MapSize,
+                       settings_map.map_size);
+
   changed |= SaveValue(CirclingZoom, ProfileKeys::CircleZoom,
                        settings_map.circle_zoom_enabled);
 
