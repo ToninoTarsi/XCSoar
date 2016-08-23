@@ -182,7 +182,8 @@ MapDisplayConfigPanel::Save(bool &_changed)
 
   changed |= SaveValue(MapSize, ProfileKeys::MapSize,
                        settings_map.map_size);
-  require_restart = changed = true;
+  if ( changed )
+    require_restart = true;
 
   changed |= SaveValue(CirclingZoom, ProfileKeys::CircleZoom,
                        settings_map.circle_zoom_enabled);
