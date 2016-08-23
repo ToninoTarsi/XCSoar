@@ -29,6 +29,8 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Widget/RowFormWidget.hpp"
 #include "UIGlobals.hpp"
+#include "UtilsSettings.hpp"
+
 
 enum ControlIndex {
   OrientationCruise,
@@ -180,6 +182,7 @@ MapDisplayConfigPanel::Save(bool &_changed)
 
   changed |= SaveValue(MapSize, ProfileKeys::MapSize,
                        settings_map.map_size);
+  require_restart = changed = true;
 
   changed |= SaveValue(CirclingZoom, ProfileKeys::CircleZoom,
                        settings_map.circle_zoom_enabled);
