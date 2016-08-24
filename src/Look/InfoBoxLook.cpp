@@ -76,7 +76,7 @@ void
 InfoBoxLook::ReinitialiseLayout(unsigned width)
 {
   FontDescription title_font_d(8);
-  AutoSizeFont(title_font_d, width, _T("12345678901"));
+  AutoSizeFont(title_font_d, width, _T("123456789012345"));
   title_font.Load(title_font_d);
 
   FontDescription value_font_d(10, true);
