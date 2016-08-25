@@ -246,6 +246,20 @@ KoboExecNickel()
 }
 
 void
+KoboExecLK8000()
+{
+#ifdef KOBO
+  char buffer[256];
+  const char *cmd = buffer;
+
+  if (!SiblingPath("xcsoar", buffer, sizeof(buffer)))
+    cmd = "/opt/LK8000/bin/LK8000-KOBO";
+
+  Run(cmd, "-fly");
+#endif
+}
+
+void
 KoboRunXCSoar(const char *mode)
 {
 #ifdef KOBO

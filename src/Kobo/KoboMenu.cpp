@@ -42,6 +42,7 @@ Copyright_License {
 
 enum Buttons {
   LAUNCH_NICKEL = 100,
+  LK8000,
   TOOLS,
   NETWORK,
   SYSTEM,
@@ -100,6 +101,7 @@ void
 KoboMenuWidget::CreateButtons(WidgetDialog &buttons)
 {
   buttons.AddButton(("Nickel"), dialog, LAUNCH_NICKEL);
+  buttons.AddButton(("LK8000"), dialog, LK8000);
   buttons.AddButton(("Tools"), *this, TOOLS);
   buttons.AddButton(_("Network"), *this, NETWORK);
   buttons.AddButton("System", *this, SYSTEM);
@@ -203,6 +205,10 @@ int main(int argc, char **argv)
     switch (action) {
     case LAUNCH_NICKEL:
       KoboExecNickel();
+      return EXIT_FAILURE;
+
+    case LK8000:
+      KoboExecLK8000();
       return EXIT_FAILURE;
 
     case SimulatorPromptWindow::FLY:

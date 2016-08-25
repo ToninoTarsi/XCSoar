@@ -58,6 +58,10 @@ void
 KoboExecNickel();
 
 void
+KoboExecLK8000();
+
+
+void
 KoboRunXCSoar(const char *mode);
 
 void
