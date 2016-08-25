@@ -252,10 +252,10 @@ KoboExecLK8000()
   char buffer[256];
   const char *cmd = buffer;
 
-  if (!SiblingPath("xcsoar", buffer, sizeof(buffer)))
+  //if (!SiblingPath("xcsoar", buffer, sizeof(buffer)))
     cmd = "/opt/LK8000/bin/LK8000-KOBO";
 
-  Run(cmd, "-fly");
+  Run(cmd, "");
 #endif
 }
 
