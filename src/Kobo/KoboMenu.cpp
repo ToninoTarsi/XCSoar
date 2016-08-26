@@ -39,6 +39,7 @@ Copyright_License {
 #include "NetworkDialog.hpp"
 #include "SystemDialog.hpp"
 #include "ToolsDialog.hpp"
+#include "OS/FileUtil.hpp"
 
 enum Buttons {
   LAUNCH_NICKEL = 100,
@@ -101,7 +102,10 @@ void
 KoboMenuWidget::CreateButtons(WidgetDialog &buttons)
 {
   buttons.AddButton(("Nickel"), dialog, LAUNCH_NICKEL);
-  buttons.AddButton(("LK8000"), dialog, LK8000);
+
+  if ( File::Exists(Path(_T("/opt/LK8000/bin/LK8000-KOBO"))) )
+    buttons.AddButton(("LK8000"), dialog, LK8000);
+
   buttons.AddButton(("Tools"), *this, TOOLS);
   buttons.AddButton(_("Network"), *this, NETWORK);
   buttons.AddButton("System", *this, SYSTEM);
@@ -209,7 +213,7 @@ int main(int argc, char **argv)
 
     case LK8000:
       KoboExecLK8000();
-      break;
+      return EXIT_SUCCESS;
 
     case SimulatorPromptWindow::FLY:
       KoboRunXCSoar("-fly");
