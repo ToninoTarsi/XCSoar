@@ -209,7 +209,7 @@ int main(int argc, char **argv)
 
     case LK8000:
       KoboExecLK8000();
-      return EXIT_FAILURE;
+      break;
 
     case SimulatorPromptWindow::FLY:
       KoboRunXCSoar("-fly");
