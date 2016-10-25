@@ -109,7 +109,7 @@ proj = AutotoolsProject(
 )
 
 libpng = AutotoolsProject(
-    'ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.24.tar.xz',
+    'ftp://ftp.simplesystems.org/pub/libpng/png/src/history/libpng16/libpng-1.6.24.tar.xz',
     'ffcdbd549814787fa8010c372e35ff25',
     'lib/libpng.a',
     [
