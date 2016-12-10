@@ -77,7 +77,8 @@ ifeq ($(USE_CROSSTOOL_NG),y)
   SYSROOT = $(shell $(CC) -print-sysroot)
 else
   # from Debian package libc6-armhf-cross
-  SYSROOT = /usr/arm-linux-gnueabihf
+  # SYSROOT = /usr/arm-linux-gnueabihf Tony
+  SYSROOT = /home/user/x-tools/arm-unknown-linux-gnueabi/arm-unknown-linux-gnueabi/sysroot
 endif
 
 # install our version of the system libraries in /opt/xcsoar/lib; this
