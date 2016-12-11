@@ -41,13 +41,14 @@ class SimulatorPromptWindow final : public ContainerWindow {
   ActionListener &action_listener;
   const bool have_quit_button;
 
+
   LogoView logo_view;
   PixelRect logo_rect;
 
   Button quit_button;
 
-  Bitmap fly_bitmap, sim_bitmap;
-  Button fly_button, sim_button;
+  Bitmap fly_bitmap, sim_bitmap,lk8000_bitmap;
+  Button fly_button, sim_button,lk8000_button;
 
   PixelPoint label_position;
 
@@ -56,6 +57,7 @@ public:
     FLY = 1000,
     SIMULATOR,
     QUIT,
+    LK8000,
   };
 
   SimulatorPromptWindow(const DialogLook &_look,

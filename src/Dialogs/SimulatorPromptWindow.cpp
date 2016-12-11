@@ -33,11 +33,16 @@ Copyright_License {
 #include "Renderer/BitmapButtonRenderer.hpp"
 #include "Simulator.hpp"
 #include "Resources.hpp"
+#include "OS/FileUtil.hpp"
+
+#include <stdio.h>
 
 void
 SimulatorPromptWindow::OnCreate()
 {
   ContainerWindow::OnCreate();
+
+
 
   const PixelRect rc = GetClientRect();
 
@@ -55,6 +60,16 @@ SimulatorPromptWindow::OnCreate()
   sim_button.Create(*this, rc, style,
                     new BitmapButtonRenderer(sim_bitmap),
                     action_listener, SIMULATOR);
+
+
+
+
+  lk8000_bitmap.Load(IDB_LK8000_HD);
+  lk8000_bitmap.EnableInterpolation();
+  lk8000_button.Create(*this, rc, style,
+                    new BitmapButtonRenderer(lk8000_bitmap),
+                    action_listener, LK8000);
+
 
   if (have_quit_button)
     quit_button.Create(*this, look.button, _("Quit"), rc, style,
@@ -75,6 +90,7 @@ SimulatorPromptWindow::OnResize(PixelSize new_size)
   const unsigned label_height =
     look.text_font.GetHeight() + Layout::GetTextPadding();
 
+
   PixelRect button_rc;
   button_rc.left = h_middle - button_width;
   button_rc.right = h_middle;
@@ -82,7 +98,9 @@ SimulatorPromptWindow::OnResize(PixelSize new_size)
   button_rc.top = button_rc.bottom - button_height;
   fly_button.Move(button_rc);
 
-  label_position.x = button_rc.left;
+  //label_position.x = button_rc.left;
+
+  label_position.x = button_rc.right - 20 ;
   label_position.y = button_rc.top - label_height;
 
   button_rc.left = button_rc.right;
@@ -98,19 +116,28 @@ SimulatorPromptWindow::OnResize(PixelSize new_size)
     button_rc.bottom = button_rc.top + Layout::GetMaximumControlHeight();
     quit_button.Move(button_rc);
   }
+
+//  printf("logo_rect.left %d \n", logo_rect.left);
+//  printf("logo_rect.right %d \n", logo_rect.right);
+//  printf("logo_rect.top %d \n", logo_rect.top);
+//  printf("logo_rect.bottom %d \n", logo_rect.bottom);
+
+
+    lk8000_button.Move(logo_rect);
+
 }
 
 void
 SimulatorPromptWindow::OnPaint(Canvas &canvas)
 {
   canvas.ClearWhite();
-  logo_view.draw(canvas, logo_rect);
+
+ //   logo_view.draw(canvas, logo_rect);
 
   canvas.Select(look.text_font);
   canvas.SetTextColor(COLOR_BLACK);
   canvas.SetBackgroundTransparent();
-  canvas.DrawText(label_position.x, label_position.y,
-                  _("What do you want to do?"));
+  canvas.DrawText(label_position.x, label_position.y,("XCSoar"));
 
   ContainerWindow::OnPaint(canvas);
 }

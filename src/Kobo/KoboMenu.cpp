@@ -43,7 +43,7 @@ Copyright_License {
 
 enum Buttons {
   LAUNCH_NICKEL = 100,
-  LK8000,
+ // LK8000,
   TOOLS,
   NETWORK,
   SYSTEM,
@@ -101,10 +101,10 @@ public:
 void
 KoboMenuWidget::CreateButtons(WidgetDialog &buttons)
 {
-  buttons.AddButton(("Nickel"), dialog, LAUNCH_NICKEL);
+  buttons.AddButton(("KOBO"), dialog, LAUNCH_NICKEL);
 
   if ( File::Exists(Path(_T("/opt/LK8000/bin/LK8000-KOBO"))) )
-    buttons.AddButton(("LK8000"), dialog, LK8000);
+//    buttons.AddButton(("LK8000"), dialog, LK8000);
 
   buttons.AddButton(("Tools"), *this, TOOLS);
   buttons.AddButton(_("Network"), *this, NETWORK);
@@ -211,10 +211,18 @@ int main(int argc, char **argv)
       KoboExecNickel();
       return EXIT_FAILURE;
 
-    case LK8000:
-      KoboExecLK8000();
-      return EXIT_SUCCESS;
+//    case LK8000:
+//      KoboExecLK8000();
+//      return EXIT_SUCCESS;
 
+
+    case SimulatorPromptWindow::LK8000:
+      if ( File::Exists(Path(_T("/opt/LK8000/bin/LK8000-KOBO"))) )
+      {
+        KoboExecLK8000();
+        return EXIT_SUCCESS;
+      }
+      break;
     case SimulatorPromptWindow::FLY:
       KoboRunXCSoar("-fly");
       /* return to menu after XCSoar quits */
