@@ -36,7 +36,7 @@ class SystemWidget final
   : public RowFormWidget, ActionListener {
   enum Buttons {
     REBOOT,
-    SWITCH_KERNEL,
+//    SWITCH_KERNEL,
     USB_STORAGE,
   };
 
@@ -59,8 +59,8 @@ void
 SystemWidget::Prepare(ContainerWindow &parent, const PixelRect &rc)
 {
   AddButton("Reboot", *this, REBOOT);
-  AddButton(IsKoboOTGKernel() ? "Disable USB-OTG" : "Enable USB-OTG",
-            *this, SWITCH_KERNEL);
+//  AddButton(IsKoboOTGKernel() ? "Disable USB-OTG" : "Enable USB-OTG",
+//            *this, SWITCH_KERNEL);
 
   AddButton("Export USB storage", *this, USB_STORAGE);
   SetRowEnabled(USB_STORAGE, !IsKoboOTGKernel());
@@ -137,9 +137,9 @@ SystemWidget::OnAction(int id)
     KoboReboot();
     break;
 
-  case SWITCH_KERNEL:
-    SwitchKernel();
-    break;
+//  case SWITCH_KERNEL:
+//    SwitchKernel();
+//    break;
 
   case USB_STORAGE:
     ExportUSBStorage();
